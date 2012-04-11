@@ -1,13 +1,21 @@
 {:servers ["irc.freenode.net"]        ; A list of servers.
- :prepends #{"$"}   ; The character you want for a prepend. Currently set to @
- :dictionary {:wordnik-key "99c266291da87b231f40a0c8902040da0b568588c25526cff"} ; Wordnik API key.
- :sed {:automatic? true}
+ :prepends #{"@"}   ; The character you want for a prepend. Currently set to @
  :max-operations 3 ; The maximum number of operations that can be running at any given time.
  :pending-ops 0    ; The number of operations running right now
  :prefix-arrow "\u21D2 "
  :clojure {:eval-prefixes {:defaults ["->" "." "," ; prefixes in any channel
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       #"##(([^#]|#(?!#))+)\s*((##)?(?=.*##)|$)"]}}
- "irc.freenode.net" {:channels ["#immutant"]
+ "irc.freenode.net" {:channels ["##tcrawley" ;"#immutant" "#torquebox"
+                                ]
                      :bot-name "proddbot"
-                     :plugins #{"dictionary" "google" "clojure" "javadoc" "jruby" "seen" "sed"}}}
+                     :plugins #{"clojure" "javadoc" "jruby" "jira"}}
+ :jira {"##tcrawley"
+        {:regex #"fil(e|ing) a jira\\?"
+         :url "https://issues.jboss.org/browse/IMMUTANT"}
+        "#immutant"
+        {:regex #"fil(e|ing) a jira\\?"
+         :url "https://issues.jboss.org/browse/IMMUTANT"}
+        "#torquebox"
+        {:regex #"fil(e|ing) a jira\\?"
+         :url "https://issues.jboss.org/browse/TORQUE"}}}
