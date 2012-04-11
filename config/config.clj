@@ -6,8 +6,7 @@
  :clojure {:eval-prefixes {:defaults ["->" "." "," ; prefixes in any channel
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       #"##(([^#]|#(?!#))+)\s*((##)?(?=.*##)|$)"]}}
- "irc.freenode.net" {:channels ["##tcrawley" ;"#immutant" "#torquebox"
-                                ]
+ "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"]
                      :bot-name "proddbot"
                      :plugins #{"clojure" "javadoc" "jruby" "jira"}}
  :jira {"##tcrawley"
