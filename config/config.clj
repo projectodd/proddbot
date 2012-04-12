@@ -10,7 +10,8 @@
                      :bot-name "proddbot"
                      :plugins #{"clojure" "javadoc" "jruby" "jira" ;"greeting"
                                 }}
- :jira {:regex #"fil(e|ing) a jira[?]"
+ :jira {:regex [#"fil(e|ing) a (jira|JIRA)[?]"
+                #".+@(jira|JIRA)"]
         "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"}}

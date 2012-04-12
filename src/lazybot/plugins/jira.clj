@@ -43,15 +43,23 @@
                "We'd be pleased as punch"
                "We'd be tickled pink"
                "We'd be happy as a dog with two tails"
-               "It would please us to no end"
-               "It would make jcrossley3's day"])
+               "It would please %nick to no end"
+               "It would make %nick's day"
+               "You would have %nick's eternal gratitude"])
 
 (defn jira-url [bot channel]
   (get-in @bot [:config :jira channel]))
 
-(defn jira-message [com-m bot channel & [prefix]]
+(defn phrase [nick]
+  (str
+   (let [phrases (if nick phrasing (filter #(not (.contains % "%nick")) phrasing))
+         phrase (nth phrases (rand-int (count phrases)))]
+     (if nick (.replace phrase "%nick" nick) phrase))
+   (when (< 7 (rand-int 10)) " my friend")))
+
+(defn jira-message [com-m bot channel & [nick prefix]]
   (registry/send-message com-m (str prefix
-                                    (nth phrasing (rand-int (count phrasing)))
+                                    (phrase nick)
                                     " if you would file a jira at "
                                     (jira-url bot channel))))
 
@@ -60,14 +68,17 @@
    :on-message
    (fn [{:keys [bot message channel] :as com-m}]
      (when-let [regex (get-in @bot [:config :jira :regex])]
-       (when (seq (re-find regex message))
+       (when (seq (remove nil? (map #(re-find % message) regex)))
          (jira-message com-m bot channel)))))
 
   (:cmd
    "Respond with the jira url"
    #{"jira"}
    (fn [{:keys [bot nick channel args] :as com-m}]
-     (if-let [url (jira-url bot channel)]
-       (jira-message com-m bot channel (and (seq args) (str (first args) ": ")))
-       (registry/send-message com-m
-                              (str nick ": I don't have a jira url for this channel"))))))
+     (try
+       (if-let [url (jira-url bot channel)]
+         (jira-message com-m bot channel nick (and (seq args) (str (first args) ": ")))
+         (registry/send-message com-m
+                                (str nick ": I don't have a jira url for this channel")))
+       (catch Exception e
+         (log/error e))))))
