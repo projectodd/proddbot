@@ -6,7 +6,7 @@
   (get-in @bot [:config :jira channel :url]))
 
 (defn jira-message [com-m bot channel & [prefix]]
-  (registry/send-message com-m (str prefix "You can file a jira at " (jira-url bot channel))))
+  (registry/send-message com-m (str prefix "You can file or browse jiras at " (jira-url bot channel))))
 
 (registry/defplugin
   (:hook

@@ -8,7 +8,7 @@
                                       #"##(([^#]|#(?!#))+)\s*((##)?(?=.*##)|$)"]}}
  "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"]
                      :bot-name "proddbot"
-                     :plugins #{"clojure" "javadoc" "jruby" "jira"}}
+                     :plugins #{"clojure" "javadoc" "jruby" "jira" "greeting"}}
  :jira {"##tcrawley"
         {:regex #"fil(e|ing) a jira\\?"
          :url "https://issues.jboss.org/browse/IMMUTANT"}
@@ -17,4 +17,6 @@
          :url "https://issues.jboss.org/browse/IMMUTANT"}
         "#torquebox"
         {:regex #"fil(e|ing) a jira\\?"
-         :url "https://issues.jboss.org/browse/TORQUE"}}}
+         :url "https://issues.jboss.org/browse/TORQUE"}}
+ :greeting {:regex #"morning[!]*$"
+            :response "morning!"}}
