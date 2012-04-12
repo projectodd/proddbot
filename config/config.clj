@@ -18,5 +18,5 @@
         "#torquebox"
         {:regex #"fil(e|ing) a jira\\?"
          :url "https://issues.jboss.org/browse/TORQUE"}}
- :greeting {:regex #"morning[!]*$"
+ :greeting {:regex #"^ *morning[!]*$"
             :response "morning!"}}
