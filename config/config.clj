@@ -6,17 +6,12 @@
  :clojure {:eval-prefixes {:defaults ["->" "." "," ; prefixes in any channel
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       #"##(([^#]|#(?!#))+)\s*((##)?(?=.*##)|$)"]}}
- "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"]
+ "irc.freenode.net" {:channels ["##tcrawley" ;"#immutant" "#torquebox"
+                                ]
                      :bot-name "proddbot"
-                     :plugins #{"clojure" "javadoc" "jruby" "jira" "greeting"}}
- :jira {"##tcrawley"
-        {:regex #"fil(e|ing) a jira\\?"
-         :url "https://issues.jboss.org/browse/IMMUTANT"}
-        "#immutant"
-        {:regex #"fil(e|ing) a jira\\?"
-         :url "https://issues.jboss.org/browse/IMMUTANT"}
-        "#torquebox"
-        {:regex #"fil(e|ing) a jira\\?"
-         :url "https://issues.jboss.org/browse/TORQUE"}}
- :greeting {:regex #"^ *morning[!]*$"
-            :response "morning!"}}
+                     :plugins #{"clojure" "javadoc" "jruby" "jira" ;"greeting"
+                                }}
+ :jira {:regex #"fil(e|ing) a jira[?]"
+        "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
+        "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
+        "#torquebox" "https://issues.jboss.org/browse/TORQUE"}}
