@@ -75,10 +75,7 @@
    "Respond with the jira url"
    #{"jira"}
    (fn [{:keys [bot nick channel args] :as com-m}]
-     (try
-       (if-let [url (jira-url bot channel)]
-         (jira-message com-m bot channel nick (and (seq args) (str (first args) ": ")))
-         (registry/send-message com-m
-                                (str nick ": I don't have a jira url for this channel")))
-       (catch Exception e
-         (log/error e))))))
+     (if-let [url (jira-url bot channel)]
+       (jira-message com-m bot channel nick (and (seq args) (str (first args) ": ")))
+       (registry/send-message com-m
+                              (str nick ": I don't have a jira url for this channel"))))))
