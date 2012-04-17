@@ -55,7 +55,7 @@
    (let [phrases (if nick phrasing (filter #(not (.contains % "%nick")) phrasing))
          phrase (nth phrases (rand-int (count phrases)))]
      (if nick (.replace phrase "%nick" nick) phrase))
-   (when (< 7 (rand-int 10)) " my friend")))
+   (when (< 7 (rand-int 10)) ", my friend,")))
 
 (defn jira-message [com-m bot channel & [nick prefix]]
   (registry/send-message com-m (str prefix
