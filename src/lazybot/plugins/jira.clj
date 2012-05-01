@@ -42,6 +42,7 @@
                "We'd be happy as a wave"
                "We'd be pleased as punch"
                "We'd be tickled pink"
+               "We'd be happy as ') DROP TABLE Issues;--"
                "We'd be happy as a drunk in a handbell choir"
                "We'd be happy as a dog with two tails"
                "It would please %nick to no end"
