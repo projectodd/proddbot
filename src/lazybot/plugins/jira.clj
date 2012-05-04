@@ -48,6 +48,7 @@
                   "We'd be happy as a moth in a sweater factory"
                   "We'd likely dance a jig"
                   "The normally docile populace would dance in the streets"
+                  "We'd be happy as kids around a maypole on May Day"
                   "Fireflies would tenderly alight on the hand of a child"])
 
 (def nick-phrasing
