@@ -46,14 +46,16 @@
                   "We'd be happy as a drunk in a handbell choir"
                   "We'd be happy as a dog with two tails"
                   "We'd be happy as a moth in a sweater factory"
-                  "We'd likely dance a jig"])
+                  "We'd likely dance a jig"
+                  "The normally docile populace would dance in the streets"
+                  "Fireflies would tenderly alight on the hand of a child"])
 
 (def nick-phrasing
   (into (map (fn [s] (.replace s "We'd" "%nick would")) we-phrasing)
         ["It would please %nick to no end"
          "It would make %nick's day"
          "You would have %nick's eternal gratitude"
-         "All the worry and doubt would rise from %nick's shoulders, and he would stand straighter, embiggenend"
+         "All the worry and doubt would rise from %nick's shoulders, and he would stand straighter, embiggened"
          "%nick's faith in mankind would assuredly be restored"]))
 
 (defn jira-url [bot channel]
