@@ -6,12 +6,13 @@
  :clojure {:eval-prefixes {:defaults ["->" ; prefixes in any channel
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       ]}}
- "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"]
+ "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox" "#boxgrinder"]
                      :bot-name "proddbot"
                      :plugins #{"clojure" "javadoc" "jruby" "jira" ;"annoy-jim" "greeting"
                                 }}
  :jira {:regex [#"(fil(e|ing)|create) a (jira|JIRA)[?]"
                 #".+@(jira|JIRA)"]
         "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
+        "#boxgrinder" "https://issues.jboss.org/browse/BGBUILD"
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"}}
