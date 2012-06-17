@@ -50,6 +50,11 @@
                   "The normally docile populace would dance in the streets"
                   "We'd be happy as kids around a maypole on May Day"
                   "We would finally be Turing Complete"
+                  "We'd be happy as a bear at a picnic"
+                  "We'd be happy as a bear in a koi pond"
+                  "We'd be happy as Burt Reynolds in the 70's"
+                  "We'd be happy as a cow in Chic-fil-A"
+                  "We'd be happy as a little girl with a puppy"
                   "Fireflies would tenderly alight on the hand of a child"])
 
 (def nick-phrasing
