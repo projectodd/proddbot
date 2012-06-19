@@ -63,6 +63,7 @@
                   "We'd be happy as newly-cut wood"
                   "We'd be happy as the quivering of tall grass on the plains"
                   "We'd be happy as a well-prepared student"
+                  "We'd be happy as a teenager on Twitter"
                   "Fireflies would tenderly alight on the hand of a child"])
 
 (def nick-phrasing
