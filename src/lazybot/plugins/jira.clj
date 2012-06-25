@@ -61,6 +61,7 @@
                   "We'd be happy as an actor in a leading role"
                   "We'd be happy as a battleship stripped for action"
                   "We'd be happy as newly-cut wood"
+                  "We'd be happy as a tornado in a trailer park"
                   "We'd be happy as the quivering of tall grass on the plains"
                   "We'd be happy as a well-prepared student"
                   "We'd be happy as a teenager on Twitter"
