@@ -6,14 +6,16 @@
  :clojure {:eval-prefixes {:defaults ["->" ; prefixes in any channel
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       ]}}
- "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox" "#boxgrinder" "#dynjs"]
+ "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"
+                                "#boxgrinder" "#dynjs" "#awestruct"]
                      :bot-name "proddbot"
                      :plugins #{"clojure" "javadoc" "jruby" "jira" ;"annoy-jim" "greeting"
                                 }}
- :jira {:regex [#"(fil(e|ing)|create) a (jira|JIRA)[?]"
-                #".+@(jira|JIRA)"]
+ :jira {:regex [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
+                #"(?i).+@(jira|issue)"]
         "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
         "#boxgrinder" "https://issues.jboss.org/browse/BGBUILD"
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"
-        "#dynjs" "https://jira.codehaus.org/browse/DYNJS"}}
+        "#dynjs" "https://jira.codehaus.org/browse/DYNJS"
+        "#awestruct" "https://github.com/awestruct/awestruct/issues"}}

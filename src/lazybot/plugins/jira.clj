@@ -89,7 +89,7 @@
 (defn jira-message [com-m bot channel & [nick prefix]]
   (registry/send-message com-m (str prefix
                                     (phrase nick)
-                                    " if you would file a jira at "
+                                    " if you would file an issue at "
                                     (jira-url bot channel))))
 
 (registry/defplugin
@@ -102,7 +102,7 @@
 
   (:cmd
    "Respond with the jira url"
-   #{"jira"}
+   #{"jira" "issue"}
    (fn [{:keys [bot nick channel args] :as com-m}]
      (if-let [url (jira-url bot channel)]
        (jira-message com-m bot channel nick (and (seq args) (str (first args) ": ")))

@@ -7,11 +7,11 @@
             [clojure.java.io :as io]))
 
 (alter-var-root #'*lazybot-dir* (constantly (io/file (app-root) "config")))
-
+(println "root:" *lazybot-dir*)
 (web/start "/" #'lazybot.core/sroutes)
 
 (let [config (info/read-config)]
-  (println config)
+  ;;(println config)
   (daemons/start "bot"
                  (fn []
                           (println "STARTING")
