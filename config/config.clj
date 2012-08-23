@@ -18,4 +18,5 @@
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"
         "#dynjs" "https://jira.codehaus.org/browse/DYNJS"
-        "#awestruct" "https://github.com/awestruct/awestruct/issues"}}
+        "#awestruct" "https://github.com/awestruct/awestruct/issues"
+        "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"}}
