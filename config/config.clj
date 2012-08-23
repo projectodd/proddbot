@@ -7,7 +7,7 @@
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       ]}}
  "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"
-                                "#boxgrinder" "#dynjs" "#awestruct"]
+                                "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"]
                      :bot-name "proddbot"
                      :plugins #{"clojure" "javadoc" "jruby" "jira" ;"annoy-jim" "greeting"
                                 }}
