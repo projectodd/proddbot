@@ -12,7 +12,7 @@
 
 (let [config (info/read-config)]
   ;;(println config)
-  (daemons/start "bot"
+  (daemons/run "bot"
                  (fn []
                           (println "STARTING")
                           (initiate-mongo)
