@@ -10,8 +10,8 @@
                                 "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"
                                 "#escalante"]
                      :bot-name "proddbot"
-                     :plugins #{"clojure" "javadoc" "jruby" "jira" ;"annoy-jim" "greeting"
-                                }}
+                     :plugins #{"clojure" "javadoc"  "jira" "github"}
+                     :user-blacklist #{}}
  :jira {:regex [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
                 #"(?i).+@(jira|issue)"]
         "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
