@@ -1,6 +1,6 @@
-(ns proddbot-immutant.init
+(ns immutant.init
   (:use [lazybot core irc info]
-        [immutant.utilities :only [app-root]])
+        [immutant.util :only [app-root]])
   (:require [lazybot.info :as info]
             [immutant.web :as web]
             [immutant.daemons :as daemons]
@@ -12,7 +12,7 @@
 
 (let [config (info/read-config)]
   ;;(println config)
-  (daemons/run "bot"
+  (daemons/daemonize "bot"
                  (fn []
                           (println "STARTING")
                           (initiate-mongo)
