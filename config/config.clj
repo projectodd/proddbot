@@ -10,7 +10,7 @@
                                 "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"
                                 "#escalante"]
                      :bot-name "proddbot"
-                     :plugins #{"clojure" "javadoc"  "jira" "github"}
+                     :plugins #{"clojure" "javadoc"  "jira" "github" "mail"}
                      :user-blacklist #{}}
  :jira {:regex [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
                 #"(?i).+@(jira|issue)"]
