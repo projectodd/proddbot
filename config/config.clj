@@ -8,7 +8,7 @@
                                       ]}}
  "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"
                                 "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"
-                                "#escalante"]
+                                "#escalante" "#mboss"]
                      :bot-name "proddbot"
                      :plugins #{"javadoc"  "jira" "github" "mail" ;"clojure"
                                 }
@@ -22,4 +22,5 @@
         "#dynjs" "https://jira.codehaus.org/browse/DYNJS"
         "#awestruct" "https://github.com/awestruct/awestruct/issues"
         "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
-        "#escalante" "https://issues.jboss.org/browse/ESC"}}
+        "#escalante" "https://issues.jboss.org/browse/ESC"
+        "#mboss" "https://github.com/projectodd/restafari/issues"}}
