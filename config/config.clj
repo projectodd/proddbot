@@ -23,4 +23,4 @@
         "#awestruct" "https://github.com/awestruct/awestruct/issues"
         "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
         "#escalante" "https://issues.jboss.org/browse/ESC"
-        "#mboss" "https://github.com/projectodd/restafari/issues"}}
+        "#liveoak" "https://github.com/projectodd/restafari/issues"}}
