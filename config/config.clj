@@ -8,7 +8,7 @@
                                       ]}}
  "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"
                                 "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"
-                                "#escalante" "#mboss"]
+                                "#escalante" "#liveoak"]
                      :bot-name "proddbot"
                      :plugins #{"javadoc"  "jira" "github" "mail" ;"clojure"
                                 }
