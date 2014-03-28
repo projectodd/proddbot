@@ -19,7 +19,7 @@
         "#boxgrinder" "https://issues.jboss.org/browse/BGBUILD"
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"
-        "#dynjs" "https://jira.codehaus.org/browse/DYNJS"
+        "#dynjs" "https://github.com/dynjs/dynjs/issues"
         "#nodyn" "https://github.com/projectodd/nodyn/issues"
         "#awestruct" "https://github.com/awestruct/awestruct/issues"
         "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
