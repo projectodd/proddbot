@@ -7,7 +7,7 @@
                                       #"&\|(.*?)(?=\|&|\|&|$)" ; stuff like &|this|&
                                       ]}}
  "irc.freenode.net" {:channels ["##tcrawley" "#immutant" "#torquebox"
-                                "#boxgrinder" "#dynjs" "#awestruct" "#aerogear"
+                                "#boxgrinder" "#dynjs" "#nodyn" "#awestruct" "#aerogear"
                                 "#escalante" "#liveoak"]
                      :bot-name "proddbot"
                      :plugins #{"javadoc"  "jira" "github" "mail" ;"clojure"
@@ -20,6 +20,7 @@
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"
         "#dynjs" "https://jira.codehaus.org/browse/DYNJS"
+        "#nodyn" "https://github.com/projectodd/nodyn/issues"
         "#awestruct" "https://github.com/awestruct/awestruct/issues"
         "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
         "#escalante" "https://issues.jboss.org/browse/ESC"
