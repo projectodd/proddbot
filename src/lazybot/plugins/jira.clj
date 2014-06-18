@@ -12,7 +12,7 @@
                   "We'd be happy as the sunlight"
                   "We'd be happy as a reprieved thief"
                   "We'd be happy as a clam at high water"
-                  "We'd be happy as a dinner-bell"
+                  "We'd be happy as Toby when he hears a dinner-bell"
                   "We'd be happy as birds in the spring"
                   "We'd be happy as a lark"
                   "We'd be happy as the kine in the fields"
