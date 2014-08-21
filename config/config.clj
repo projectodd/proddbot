@@ -20,7 +20,7 @@
         "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
         "#torquebox" "https://issues.jboss.org/browse/TORQUE"
         "#dynjs" "https://github.com/dynjs/dynjs/issues"
-        "#nodyn" "https://github.com/projectodd/nodyn/issues"
+        "#nodyn" "https://github.com/nodyn/nodyn/issues"
         "#awestruct" "https://github.com/awestruct/awestruct/issues"
         "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
         "#escalante" "https://issues.jboss.org/browse/ESC"
