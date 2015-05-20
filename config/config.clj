@@ -15,13 +15,14 @@
                      :user-blacklist #{}}
  :jira {:regex [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
                 #"(?i).+@(jira|issue)"]
-        "##tcrawley" "https://issues.jboss.org/browse/IMMUTANT"
+        "##tcrawley"  "https://issues.jboss.org/browse/IMMUTANT"
+        "#clojars"    "https://github.com/ato/clojars-web/issues"
         "#boxgrinder" "https://issues.jboss.org/browse/BGBUILD"
-        "#immutant" "https://issues.jboss.org/browse/IMMUTANT"
-        "#torquebox" "https://issues.jboss.org/browse/TORQUE"
-        "#dynjs" "https://github.com/dynjs/dynjs/issues"
-        "#nodyn" "https://github.com/nodyn/nodyn/issues"
-        "#awestruct" "https://github.com/awestruct/awestruct/issues"
-        "#aerogear" "https://issues.jboss.org/browse/AEROGEAR"
-        "#escalante" "https://issues.jboss.org/browse/ESC"
-        "#liveoak" "https://issues.jboss.org/browse/LIVEOAK"}}
+        "#immutant"   "https://issues.jboss.org/browse/IMMUTANT"
+        "#torquebox"  "https://issues.jboss.org/browse/TORQUE"
+        "#dynjs"      "https://github.com/dynjs/dynjs/issues"
+        "#nodyn"      "https://github.com/nodyn/nodyn/issues"
+        "#awestruct"  "https://github.com/awestruct/awestruct/issues"
+        "#aerogear"   "https://issues.jboss.org/browse/AEROGEAR"
+        "#escalante"  "https://issues.jboss.org/browse/ESC"
+        "#liveoak"    "https://issues.jboss.org/browse/LIVEOAK"}}
