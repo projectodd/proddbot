@@ -1,5 +1,5 @@
 (let [issue-channels {"##tcrawley"  "https://issues.jboss.org/browse/IMMUTANT"
-                      "#clojars"    "https://github.com/ato/clojars-web/issues"
+                      "#clojars"    "https://github.com/clojars/clojars-web/issues"
                       "#boxgrinder" "https://issues.jboss.org/browse/BGBUILD"
                       "#immutant"   "https://issues.jboss.org/browse/IMMUTANT"
                       "#torquebox"  "https://issues.jboss.org/browse/TORQUE"
