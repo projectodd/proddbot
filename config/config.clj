@@ -21,7 +21,7 @@
                                         ]}}
    "irc.freenode.net" {:channels (keys issue-channels)
                        :bot-name "proddbot"
-                       :plugins #{"javadoc"  "jira" "github" "mail" ;"clojure"
+                       :plugins #{#_"javadoc"  "jira" #_"github" #_"mail" ;"clojure"
                                   }
                        :user-blacklist #{}}
    :jira (assoc issue-channels
