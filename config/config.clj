@@ -9,7 +9,8 @@
                       "#aerogear"   "https://issues.jboss.org/browse/AEROGEAR"
                       "#escalante"  "https://issues.jboss.org/browse/ESC"
                       "#liveoak"    "https://issues.jboss.org/browse/LIVEOAK"
-                      "#wildfly-swarm" "https://issues.jboss.org/browse/SWARM"}]
+                      "#wildfly-swarm" "https://issues.jboss.org/browse/SWARM"
+                      "#forge"      "https://issues.jboss.org/browse/FORGE"}]
   {:servers ["irc.freenode.net"]        ; A list of servers.
    :prepends #{"@"}   ; The character you want for a prepend. Currently set to @
    :max-operations 3 ; The maximum number of operations that can be running at any given time.
