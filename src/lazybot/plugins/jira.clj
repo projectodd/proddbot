@@ -22,6 +22,7 @@
                   "We'd be happy as a king"
                   "We'd be happy as a Sunday in Paris, full of song, and dance, and laughter"
                   "We'd be happy as a lord"
+                  "We'd be happy as a lord in a fjord with a sword"
                   "We'd be happy as the bird whose nest is heaven'd in the heart of purple hills"
                   "We'd be happy as a miner when he has discovered a vein of precious metal"
                   "We'd be happy as a schoolgirl going home for the holidays"
