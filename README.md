@@ -1,7 +1,7 @@
-# proddbot-immutant
+# proddbot
 
-A simple Immutant app that uses lazybot.
+A simple irc bot.
 
-Copyright (C) 2011 Tobias Crawley
+Copyright (C) 2011-2016 Tobias Crawley
 
 Distributed under the Eclipse Public License, the same as Clojure.
