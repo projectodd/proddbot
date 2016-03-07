@@ -1,6 +1,7 @@
 (ns proddbot.main
   (:require [prodd.bot :as bot]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io])
+  (:gen-class))
 
 (defn read-config [path]
   (-> path io/file slurp read-string))

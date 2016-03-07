@@ -7,4 +7,5 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [irclj "0.5.0-alpha4"]]
   :main proddbot.main
-  :profiles {:dev {:source-paths ["dev"]}})
+  :profiles {:dev {:source-paths ["dev"]}
+             :uberjar {:aot :all}})
