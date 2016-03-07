@@ -8,12 +8,22 @@
   (run! #(irc/message irc target %)
     (issues/issue-handler config (set/rename-keys args {:target :channel}))))
 
+(defn log-and-exit
+  "Logs a message and does a hard exit."
+  [event-type & [e]]
+  (when e
+    (.printStackTrace e))
+  (println event-type "event received, exiting")
+  (System/exit 1))
+
 (defn start [{:keys [host port nick channels] :as config}]
   (let [irc (irc/connect host port nick
               :callbacks {:raw-log events/stdout-callback
-                          :privmsg #(#'msg-handler config %1 %2)})]
+                          :privmsg #(#'msg-handler config %1 %2)
+                          :on-exception (partial log-and-exit :exception)
+                          :on-shutdown (partial log-and-exit :shutdown)})]
     (when (= ::timeout (deref (:ready? @irc) 10000 ::timeout))
-      (throw (ex-info "Failed to connect to irc" @irc)))
+      (log-and-exit :timeout (ex-info "Failed to connect to irc" @irc)))
     (apply irc/join irc (keys channels))
     irc))
 
