@@ -35,7 +35,7 @@
 
 (defn stop [irc]
   (irc/kill irc)
-  (buids/stop))
+  (builds/stop))
 
 (comment
   (def test-config
