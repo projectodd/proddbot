@@ -2,7 +2,8 @@
   (:require [clojure.set :as set]
             [irclj.core :as irc]
             [irclj.events :as events]
-            [proddbot.issues :as issues]))
+            [proddbot.issues :as issues]
+            [proddbot.jenkins-builds :as builds]))
 
 (defn msg-handler [config irc {:keys [target] :as args}]
   (run! #(irc/message irc target %)
@@ -16,7 +17,7 @@
   (println event-type "event received, exiting")
   (System/exit 1))
 
-(defn start [{:keys [host port nick channels] :as config}]
+(defn start [{:keys [host port web-port nick channels] :as config}]
   (let [irc (irc/connect host port nick
               :callbacks {:raw-log events/stdout-callback
                           :privmsg #(#'msg-handler config %1 %2)
@@ -25,15 +26,22 @@
     (when (= ::timeout (deref (:ready? @irc) 10000 ::timeout))
       (log-and-exit :timeout (ex-info "Failed to connect to irc" @irc)))
     (apply irc/join irc (keys channels))
+    (builds/start
+      web-port
+      (System/getenv "JENKINS_TOKEN")
+      (set (keys channels))
+      #(irc/message irc %1 %2))
     irc))
 
 (defn stop [irc]
-  (irc/kill irc))
+  (irc/kill irc)
+  (buids/stop))
 
 (comment
   (def test-config
     {:host "irc.freenode.net"
      :port 6667
+     :web-port 8080
      :nick "proddbot2"
      :channels {"##tcrawley" {:issue-url "https://issues.jboss.org/browse/IMMUTANT"}}
      :issue-triggers {:directed [#"(?i)^@(jira|issue) (.+)"]
