@@ -10,13 +10,13 @@
 (defn handler [irc-fn req]
   (when-let [payload (::payload req)]
     (let [build (:build payload)
-          msg (format "%s build %s %s with %s\n%s"
+          msg (format "%s build %s %s with %s (%s)"
                  (:name payload)
                  (:number build)
                  (:phase build)
                  (:status build)
                  (:full_url build))]
-      (log/info (first (str/split msg #"\n")))
+      (log/info msg)
       (irc-fn (::channel req) msg)))
   {:status 200})
 
@@ -57,7 +57,7 @@
                    (dissoc req ::payload))
                  req)))))
 
-(defn start [port valid-token channels irc]
+(defn start [port host valid-token channels irc]
   (web/run
     (-> (partial handler irc)
       (wrap-phase-filtering #{"STARTED" "FINALIZED"})
@@ -65,7 +65,8 @@
       (wrap-channel-check channels)
       (wrap-token valid-token)
       wrap-params)
-    :port port))
+    :port port
+    :host host))
 
 (defn stop []
   (web/stop))

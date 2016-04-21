@@ -1,6 +1,7 @@
 {:host "irc.freenode.net"
  :port 6667
  :web-port 8675
+ :web-host "0.0.0.0"
  :nick "proddbot"
 
  :channels {"##tcrawley"
