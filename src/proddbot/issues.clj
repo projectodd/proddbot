@@ -28,10 +28,12 @@
     " if you would file an issue at "
     (issue-url config channel)))
 
-(defn issue-handler [config {:keys [nick text channel]}]
+(defn issue-handler [config irc {:keys [nick text channel]}]
   (let [{:keys [directed global]} (:issue-triggers config)]
-    (if-let [match (some #(re-find % text) directed)]
-      [(issue-message config channel nick (last match))]
+    (if-let [target (last (some #(re-find % text) directed))]
+      (if (some #{target} (-> @irc (get-in [:channels channel :users]) keys))
+        [(issue-message config channel nick target)]
+        [(issue-message config channel)])
       (when (some #(re-find % text) global)
         [(issue-message config channel)]))))
 

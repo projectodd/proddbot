@@ -7,7 +7,7 @@
 
 (defn msg-handler [config irc {:keys [target] :as args}]
   (run! #(irc/message irc target %)
-    (issues/issue-handler config (set/rename-keys args {:target :channel}))))
+    (issues/issue-handler config irc (set/rename-keys args {:target :channel}))))
 
 (defn log-and-exit
   "Logs a message and does a hard exit."
@@ -46,7 +46,7 @@
      :web-host "localhost"
      :nick "proddbot2"
      :channels {"##tcrawley" {:issue-url "https://issues.jboss.org/browse/IMMUTANT"}}
-     :issue-triggers {:directed [#"(?i)^@(jira|issue) (.+)"]
+     :issue-triggers {:directed [#"(?i)^@(jira|issue) ([^\s]+)"]
                       :global [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
                            #"(?i)@(jira|issue)"]}
      :base-phrases ["We'd be tickled"

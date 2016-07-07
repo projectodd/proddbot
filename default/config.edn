@@ -23,7 +23,7 @@
             "#forge"
             {:issue-url "https://issues.jboss.org/browse/FORGE"}}
 
- :issue-triggers {:directed [#"(?i)^@(jira|issue) (.+)"]
+ :issue-triggers {:directed [#"(?i)^@(jira|issue) ([^\s]+)"]
                   :global [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"
                            #"(?i)@(jira|issue)"]}
 
