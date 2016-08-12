@@ -34,6 +34,7 @@
       (if (some #{target} (-> @irc (get-in [:channels channel :users]) keys))
         [(issue-message config channel nick target)]
         [(issue-message config channel)])
-      (when (some #(re-find % text) global)
-        [(issue-message config channel)]))))
+      (if (some #(re-find % text) global)
+        [(issue-message config channel)]
+        :next))))
 
