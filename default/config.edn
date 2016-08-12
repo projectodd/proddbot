@@ -96,7 +96,7 @@
                 "Fireflies would tenderly alight on the hand of a child"]
  :release-watch {:signal "@watch-releases"
                  :interval 5 ;; minutes
-                 :channels #{"#forge" "#immutant" "#wildfy-swarm"}
+                 :channels #{"#forge" "#immutant" "#wildfly-swarm"}
                  :messages ["Good news!"
                             "Praise $deity!"
                             "You're in luck, my friend!"
