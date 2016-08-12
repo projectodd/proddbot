@@ -5,7 +5,15 @@
             [clojure.walk :refer [keywordize-keys]]
             [immutant.web :as web]
             [ring.middleware.params :refer [wrap-params]]
-            [taoensso.timbre :as log]))
+            [taoensso.timbre :as log]
+            [proddbot.releases :as releases]))
+
+(defn extract-version [req]
+  (when-let [key-name (get-in req [:params "version"])]
+    (get-in req [::payload :build :parameters key-name])))
+
+(defn extract-channel [req]
+  (str "#" (get-in req [:params "channel"])))
 
 (defn handler [irc-fn req]
   (when-let [payload (::payload req)]
@@ -17,7 +25,16 @@
                  (:status build)
                  (:full_url build))]
       (log/info msg)
-      (irc-fn (::channel req) msg)))
+      (irc-fn (::channel req) msg)
+      (when-let [ga (get-in req [:params "ga"])]
+        (let [[group artifact] (str/split #":" ga)] 
+          (run! irc-fn
+            (releases/command
+              #:releases{:cmd :releases/add
+                         :group group
+                         :artifact artifact
+                         :version (extract-version req)}
+              {:channel (extract-channel req)}))))))
   {:status 200})
 
 (defn reject [reason]
@@ -33,7 +50,7 @@
 
 (defn wrap-channel-check [handler channels]
   (fn [req]
-    (let [channel (str "#" (get-in req [:params "channel"]))]
+    (let [channel (extract-channel req)]
       (if (contains? channels channel)
         (handler (assoc req ::channel channel))
         (reject (str "invalid channel: " channel))))))

@@ -47,7 +47,7 @@
   (->> @watches (filter-by-channel channel) sort-by-time))
 
 (defn watch->str [{:keys [::nick ::time] :as watch}]
-  (format "%s by: %s at: %s" (artifact->str watch) nick (.format date-formatter time)))
+  (format "%s by: %s at: %s" (artifact->str watch) (or nick "<CI>") (.format date-formatter time)))
 
 (defmulti command (fn [data _] (::cmd data)))
 
@@ -116,8 +116,10 @@
   (doseq [{:keys [::nick ::channel] :as watch} @watches]
     (when (artifact-available? watch)
       (swap! watches disj watch)
-      (send-fn channel (format "%s: %s %s is now available in central"
-                         nick (happy-message config) (artifact->str watch))))))
+      (send-fn channel (format "%s%s %s is now available in central"
+                         (if nick (str nick ": ") "")
+                         (happy-message config)
+                         (artifact->str watch))))))
 
 (defonce timer-id (atom nil))
 
