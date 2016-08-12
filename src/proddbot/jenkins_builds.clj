@@ -28,7 +28,7 @@
       (irc-fn (::channel req) msg)
       (when (= "SUCCESS" (:status build))
         (when-let [ga (get-in req [:params "ga"])]
-          (let [[group artifact] (str/split #":" ga)] 
+          (let [[group artifact] (str/split ga #":")] 
             (run! irc-fn
               (releases/command
                 #:releases{:cmd :releases/add
