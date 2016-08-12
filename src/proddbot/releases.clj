@@ -116,7 +116,7 @@
   (doseq [{:keys [::nick ::channel] :as watch} @watches]
     (when (artifact-available? watch)
       (swap! watches disj watch)
-      (send-fn channel (format "%s: %s %s is now avaiable in central!"
+      (send-fn channel (format "%s: %s %s is now avaiable in central"
                          nick (happy-message config) (artifact->str watch))))))
 
 (defonce timer-id (atom nil))
