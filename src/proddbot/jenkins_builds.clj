@@ -26,15 +26,16 @@
                  (:full_url build))]
       (log/info msg)
       (irc-fn (::channel req) msg)
-      (when-let [ga (get-in req [:params "ga"])]
-        (let [[group artifact] (str/split #":" ga)] 
-          (run! irc-fn
-            (releases/command
-              #:releases{:cmd :releases/add
-                         :group group
-                         :artifact artifact
-                         :version (extract-version req)}
-              {:channel (extract-channel req)}))))))
+      (when (= "SUCCESS" (:status build))
+        (when-let [ga (get-in req [:params "ga"])]
+          (let [[group artifact] (str/split #":" ga)] 
+            (run! irc-fn
+              (releases/command
+                #:releases{:cmd :releases/add
+                           :group group
+                           :artifact artifact
+                           :version (extract-version req)}
+                {:channel (extract-channel req)})))))))
   {:status 200})
 
 (defn reject [reason]
