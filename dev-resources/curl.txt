@@ -1,0 +1,1 @@
+curl -X GET --header "Content-Type:application/json" -d @dev-resources/body.json "http://localhost:8080/?channel=%23tcrawley&ga=org.wildfly.swarm:spi&version=version"

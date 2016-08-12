@@ -10,7 +10,7 @@
 
 (defn extract-version [req]
   (when-let [key-name (get-in req [:params "version"])]
-    (get-in req [::payload :build :parameters key-name])))
+    (get-in req [::payload :build :parameters (keyword key-name)])))
 
 (defn extract-channel [req]
   (str "#" (get-in req [:params "channel"])))
@@ -29,12 +29,12 @@
       (when (= "SUCCESS" (:status build))
         (when-let [ga (get-in req [:params "ga"])]
           (let [[group artifact] (str/split ga #":")] 
-            (run! irc-fn
+            (run! (partial irc-fn (::channel req))
               (releases/command
-                #:releases{:cmd :releases/add
-                           :group group
-                           :artifact artifact
-                           :version (extract-version req)}
+                #:proddbot.releases{:cmd :proddbot.releases/add
+                                    :group group
+                                    :artifact artifact
+                                    :version (extract-version req)}
                 {:channel (extract-channel req)})))))))
   {:status 200})
 
