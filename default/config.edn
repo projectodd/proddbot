@@ -94,7 +94,7 @@
                 "We'd be happy as a teenager on Twitter"
                 "We'd be fine and dandy like sour candy"
                 "Fireflies would tenderly alight on the hand of a child"]
- :release-watch {:signal "@watch-releases"
+ :release-watch {:signal "@watch-release"
                  :interval 5 ;; minutes
                  :channels #{"#forge" "#immutant" "#wildfly-swarm"}
                  :messages ["Good news!"
