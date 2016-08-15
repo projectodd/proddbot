@@ -1,6 +1,6 @@
 { "name": "foo",
   "build":
-  {"parameters": {"version": "1.0.8"},
+  {"parameters": {"version": "1.0.8.Final"},
    "number": "1",
   "phase": "COMPLETED",
   "status": "SUCCESS",

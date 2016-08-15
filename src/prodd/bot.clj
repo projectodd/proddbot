@@ -67,7 +67,7 @@
                                #"(?i)@(jira|issue)"]}
      :release-watch {:signal "@watch-release"
                      :channels #{"##tcrawley"}
-                     :interval 5
+                     :interval 1
                      :messages ["msg1" "msg2"]}
      :base-phrases ["We'd be tickled"
                     "We'd be blah"]})

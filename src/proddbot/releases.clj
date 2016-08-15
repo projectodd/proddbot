@@ -9,33 +9,16 @@
 
 (defonce watches (atom #{}))
 
-(def add-re #"([^:]+):([^:]+):([^:]+)")
-
-(def cancel-re #"^cancel (\d+)")
-
 (def date-formatter (doto (SimpleDateFormat. "yyyy-MM-dd HH:mm z")
                       (.setTimeZone (TimeZone/getTimeZone "UTC"))))
 
 (defn artifact->str [{:keys [::group ::artifact ::version]}]
   (format "%s:%s:%s" group artifact version))
 
-(defn parse-cancel [str]
-  {::cmd ::cancel
-   ::num (->> str (re-find cancel-re) last read-string)})
-
-(defn parse-add [str]
-  (let [[_ group artifact version] (re-find add-re str)]
-    {::cmd ::add
-     ::group group
-     ::artifact artifact
-     ::version version}))
-
 (defn parse-command [str]
-  (cond
-    (empty? str)             {::cmd ::list}
-    (re-find #"^usage$" str) {::cmd ::usage}
-    (re-find cancel-re str)  (parse-cancel str)
-    (re-find add-re str)     (parse-add str)))
+  (let [[cmd & rest] (str/split str #" ")]
+    {::cmd (when (and cmd (not (empty? cmd))) (keyword cmd))
+     ::args (map str/trim rest)}))
 
 (defn filter-by-channel [channel watches]
   (filter #(= (::channel %) channel) watches))
@@ -49,23 +32,39 @@
 (defn watch->str [{:keys [::nick ::time] :as watch}]
   (format "%s by: %s at: %s" (artifact->str watch) (or nick "<CI>") (.format date-formatter time)))
 
+(defn usage [signal]
+  [(format "usage: '%s add group:artifact:version' to add watch" signal)
+   (format "       '%s list' to list current watches" signal)
+   (format "       '%s cancel n' to cancel watch # n" signal)])
+
 (defmulti command (fn [data _] (::cmd data)))
 
-(defmethod command ::add [cmd {:keys [nick channel]}]
-  (let [watch (-> cmd
-                (dissoc ::cmd)
-                (assoc ::nick nick ::channel channel ::time (Date.)))]
-    (swap! watches conj watch)
-    [(format "watch for %s created" (artifact->str watch))]))
+(defmethod command :add [{:keys [::args]} {:keys [nick channel ::signal]}]
+  (let [add-re #"([^:]+):([^:]+):([^:]+)"]
+    (if (and (= 1 (count args))
+          (re-find add-re (first args)))
+      (let [[_ group artifact version] (re-find add-re (first args))
+            watch {::group group
+                   ::artifact artifact
+                   ::version version
+                   ::nick nick
+                   ::channel channel
+                   ::time (Date.)}]
+        (swap! watches conj watch)
+        [(format "watch for %s created" (artifact->str watch))])
+      (usage signal))))
 
-(defmethod command ::cancel [{:keys [::num]} {:keys [channel]}]
-  (if-let [w (nth (watch-list-for-channel channel) num nil)]
-    (do
-      (swap! watches disj w)
-      [(format "watch for %s canceled" (artifact->str w))])
-    ["no matching watch found!"]))
+(defmethod command :cancel [{:keys [::args]} {:keys [channel ::signal]}]
+  (if (and (= 1 (count args))
+        (re-find #"^\d+$" (first args)))
+    (if-let [w (nth (watch-list-for-channel channel) (read-string (first args)) nil)]
+      (do
+        (swap! watches disj w)
+        [(format "watch for %s canceled" (artifact->str w))])
+      ["no matching watch found"])
+    (usage signal)))
 
-(defmethod command ::list [_ {:keys [channel]}]
+(defmethod command :list [_ {:keys [channel]}]
   (let [watches (watch-list-for-channel channel)]
     (if (seq watches)
       (concat ["Current watches:"]
@@ -75,11 +74,8 @@
           watches))
       ["No active watches"])))
 
-(defmethod command ::usage [_ {:keys [::signal]}]
-  [(format "usage: '%s group:artifact:version' to add watch" signal)
-   (format "       '%s' to list current watches" signal)
-   (format "       '%s cancel n' to cancel watch # n" signal)])
-
+(defmethod command :default [_ {:keys [::signal]}]
+  (usage signal))
 
 (defn handle-release [signal {:keys [nick] :as msg} text]
   (if-let [cmd (parse-command text)]

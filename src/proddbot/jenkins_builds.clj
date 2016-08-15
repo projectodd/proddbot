@@ -31,10 +31,8 @@
           (let [[group artifact] (str/split ga #":")] 
             (run! (partial irc-fn (::channel req))
               (releases/command
-                #:proddbot.releases{:cmd :proddbot.releases/add
-                                    :group group
-                                    :artifact artifact
-                                    :version (extract-version req)}
+                #:proddbot.releases{:cmd :add
+                                    :args [(format "%s:%s:%s" group artifact (extract-version req))]}
                 {:channel (extract-channel req)})))))))
   {:status 200})
 
