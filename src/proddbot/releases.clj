@@ -60,7 +60,7 @@
     (if-let [w (nth (watch-list-for-channel channel) (read-string (first args)) nil)]
       (do
         (swap! watches disj w)
-        [(format "watch for %s canceled" (artifact->str w))])
+        [(format "watch for %s cancelled" (artifact->str w))])
       ["no matching watch found"])
     (usage signal)))
 
