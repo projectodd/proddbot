@@ -15,20 +15,34 @@
 (defn extract-channel [req]
   (str "#" (get-in req [:params "channel"])))
 
+;; "origin/pr/191/merge"
+(defn pr-url [git-url branch]
+  (when branch
+    (let [[_ type num] (str/split branch #"/")]
+      (when (= "pr" type)
+        (format "%s/pull/%s" (subs git-url 0 (- (count git-url) 4)) num)))))
+
+(defn build-message [payload]
+  (let [build (:build payload)
+        msg (format "%s build %s %s with %s"
+              (:name payload)
+              (:number build)
+              (:phase build)
+              (:status build))
+        msg (if-let [pr-url (pr-url (get-in build [:scm :url]) (get-in build [:scm :branch]))]
+              (format "%s for PR %s" msg pr-url)
+              msg)]
+    (format "%s (%s)" msg (:full_url build))))
+
 (defn handler [irc-fn req]
   (when-let [payload (::payload req)]
     (let [build (:build payload)
-          msg (format "%s build %s %s with %s (%s)"
-                 (:name payload)
-                 (:number build)
-                 (:phase build)
-                 (:status build)
-                 (:full_url build))]
+          msg (build-message payload)]
       (log/info msg)
       (irc-fn (::channel req) msg)
       (when (= "SUCCESS" (:status build))
         (when-let [ga (get-in req [:params "ga"])]
-          (let [[group artifact] (str/split ga #":")] 
+          (let [[group artifact] (str/split ga #":")]
             (run! (partial irc-fn (::channel req))
               (releases/command
                 #:proddbot.releases{:cmd :add
