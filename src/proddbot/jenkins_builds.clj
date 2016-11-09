@@ -15,12 +15,18 @@
 (defn extract-channel [req]
   (str "#" (get-in req [:params "channel"])))
 
+(defn git-url [build]
+  (when-let [url (get-in build [:scm :url])]
+    (if (.endsWith url ".git")
+      (subs url 0 (- (count url) 4))
+      url)))
+
 ;; "origin/pr/191/merge"
 (defn pr-url [git-url branch]
   (when branch
     (let [[_ type num] (str/split branch #"/")]
       (when (= "pr" type)
-        (format "%s/pull/%s" (subs git-url 0 (- (count git-url) 4)) num)))))
+        (format "%s/pull/%s" git-url num)))))
 
 (defn build-message [payload]
   (let [build (:build payload)
@@ -29,7 +35,7 @@
               (:number build)
               (:phase build)
               (:status build))
-        msg (if-let [pr-url (pr-url (get-in build [:scm :url]) (get-in build [:scm :branch]))]
+        msg (if-let [pr-url (pr-url (git-url build) (get-in build [:scm :branch]))]
               (format "%s for PR %s" msg pr-url)
               msg)]
     (format "%s (%s)" msg (:full_url build))))
