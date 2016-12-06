@@ -48,12 +48,14 @@
       (irc-fn (::channel req) msg)
       (when (= "SUCCESS" (:status build))
         (when-let [ga (get-in req [:params "ga"])]
-          (let [[group artifact] (str/split ga #":")]
-            (run! (partial irc-fn (::channel req))
-              (releases/command
-                #:proddbot.releases{:cmd :add
-                                    :args [(format "%s:%s:%s" group artifact (extract-version req))]}
-                {:channel (extract-channel req)})))))))
+          (let [[group artifact] (str/split ga #":")
+                create-watch (get-in req [:params "create_watch"])]
+            (when (or (nil? create-watch) (= "true" create-watch))
+              (run! (partial irc-fn (::channel req))
+                (releases/command
+                  #:proddbot.releases{:cmd :add
+                                      :args [(format "%s:%s:%s" group artifact (extract-version req))]}
+                  {:channel (extract-channel req)}))))))))
   {:status 200})
 
 (defn reject [reason]
