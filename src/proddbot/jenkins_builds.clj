@@ -22,11 +22,18 @@
       url)))
 
 ;; "origin/pr/191/merge"
-(defn pr-url [git-url branch]
-  (when branch
-    (let [[_ type num] (str/split branch #"/")]
-      (when (= "pr" type)
-        (format "%s/pull/%s" git-url num)))))
+(defn pr-id [build]
+  ;; some jenkins versions give it to us this way?
+  (if-let [num (get-in build [:parameters :ghprbPullId])]
+    num
+    (when-let [branch (get-in build [:scm :branch])]
+      (let [[_ type num] (str/split branch #"/")]
+        (when (= "pr" type)
+          num)))))
+
+(defn pr-url [git-url num]
+  (when num
+    (format "%s/pull/%s" git-url num)))
 
 (defn build-message [payload]
   (let [build (:build payload)
@@ -35,7 +42,7 @@
               (:number build)
               (:phase build)
               (:status build))
-        msg (if-let [pr-url (pr-url (git-url build) (get-in build [:scm :branch]))]
+        msg (if-let [pr-url (pr-url (git-url build) (pr-id build))]
               (format "%s for PR %s" msg pr-url)
               msg)]
     (format "%s (%s)" msg (:full_url build))))
