@@ -49,7 +49,7 @@
               (:phase build)
               (:status build))
         msg (if-let [duration (::duration payload)]
-              (format "%s (duration: %s)" msg (format-duration duration))
+              (format "%s (%s)" msg (format-duration duration))
               msg)
         msg (if-let [pr-url (pr-url (git-url build) (pr-id build))]
               (format "%s for PR %s" msg pr-url)
