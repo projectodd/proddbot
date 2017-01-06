@@ -35,6 +35,12 @@
   (when num
     (format "%s/pull/%s" git-url num)))
 
+(defn format-duration [ms]
+  (let [hours   (int (mod (/ ms (* 1000 60 60)) 24))
+        minutes (int (mod (/ ms (* 1000 60)) 60))
+        seconds (int (mod (/ ms 1000) 60))]
+    (format "%02d:%02d:%02d" hours minutes seconds)))
+
 (defn build-message [payload]
   (let [build (:build payload)
         msg (format "%s build %s %s with %s"
@@ -42,6 +48,9 @@
               (:number build)
               (:phase build)
               (:status build))
+        msg (if-let [duration (::duration payload)]
+              (format "%s (duration: %s)" msg (format-duration duration))
+              msg)
         msg (if-let [pr-url (pr-url (git-url build) (pr-id build))]
               (format "%s for PR %s" msg pr-url)
               msg)]
@@ -49,6 +58,7 @@
 
 (defn handler [irc-fn req]
   (when-let [payload (::payload req)]
+    (log/info payload)
     (let [build (:build payload)
           msg (build-message payload)]
       (log/info msg)
@@ -102,10 +112,28 @@
                    (dissoc req ::payload))
                  req)))))
 
+(let [start-times (atom {})]
+  (defn wrap-duration [handler print-phases]
+    (fn [req]
+      (let [build (get-in req [::payload :build])
+            phase (:phase build)
+            url (:url build)]
+        (handler (if (= "STARTED" phase)
+                   (do
+                     (swap! start-times assoc url (System/currentTimeMillis))
+                     req)
+                   (let [start (@start-times url)]
+                     (if (and start (contains? print-phases phase))
+                       (do
+                         (swap! start-times dissoc url)
+                         (assoc-in req [::payload ::duration] (- (System/currentTimeMillis) start)))
+                       req))))))))
+
 (defn start [port host valid-token channels irc]
   (web/run
     (-> (partial handler irc)
       (wrap-phase-filtering #{"STARTED" "FINALIZED"})
+      (wrap-duration #{"COMPLETED"}) 
       wrap-payload-decoding
       (wrap-channel-check channels)
       (wrap-token valid-token)
