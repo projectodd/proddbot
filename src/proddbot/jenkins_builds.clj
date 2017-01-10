@@ -6,7 +6,8 @@
             [immutant.web :as web]
             [ring.middleware.params :refer [wrap-params]]
             [taoensso.timbre :as log]
-            [proddbot.releases :as releases]))
+            [proddbot.releases :as releases]
+            [proddbot.colors :as c]))
 
 (defn extract-version [req]
   (when-let [key-name (get-in req [:params "version"])]
@@ -41,13 +42,18 @@
         seconds (int (mod (/ ms 1000) 60))]
     (format "%02d:%02d:%02d" hours minutes seconds)))
 
+(def status-colors {"ABORTED" :yellow
+                    "FAILED"  :red
+                    "SUCCESS" :green})
+
 (defn build-message [payload]
   (let [build (:build payload)
+        status (:status build)
         msg (format "%s build %s %s with %s"
-              (:name payload)
+              (c/with-color :blue (:name payload))
               (:number build)
               (:phase build)
-              (:status build))
+              (c/with-color (status-colors status :white) status))
         msg (if-let [duration (::duration payload)]
               (format "%s (%s)" msg (format-duration duration))
               msg)

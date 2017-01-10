@@ -3,7 +3,8 @@
             [clojure.string :as str]
             [immutant.scheduling :as s]
             [irclj.core :as irc]
-            [taoensso.timbre :as log])
+            [taoensso.timbre :as log]
+            [proddbot.colors :as c])
   (:import [java.util Date TimeZone]
            java.text.SimpleDateFormat))
 
@@ -30,7 +31,9 @@
   (->> @watches (filter-by-channel channel) sort-by-time))
 
 (defn watch->str [{:keys [::nick ::time] :as watch}]
-  (format "%s by: %s at: %s" (artifact->str watch) (or nick "<CI>") (.format date-formatter time)))
+  (format "%s by: %s at: %s" (c/with-color :blue (artifact->str watch))
+    (or nick (c/with-color :green "<CI>"))
+    (c/with-color :orange (.format date-formatter time))))
 
 (defn usage [signal]
   [(format "usage: '%s add group:artifact:version' to add watch" signal)
@@ -51,7 +54,7 @@
                    ::channel channel
                    ::time (Date.)}]
         (swap! watches conj watch)
-        [(format "watch for %s created" (artifact->str watch))])
+        [(format "watch for %s created" (c/with-color :blue (artifact->str watch)))])
       (usage signal))))
 
 (defmethod command :cancel [{:keys [::args]} {:keys [channel ::signal]}]
@@ -60,7 +63,7 @@
     (if-let [w (nth (watch-list-for-channel channel) (read-string (first args)) nil)]
       (do
         (swap! watches disj w)
-        [(format "watch for %s cancelled" (artifact->str w))])
+        [(format "watch for %s cancelled" (c/with-color :blue (artifact->str w)))])
       ["no matching watch found"])
     (usage signal)))
 
@@ -115,7 +118,7 @@
       (send-fn channel (format "%s%s %s is now available in central"
                          (if nick (str nick ": ") "")
                          (happy-message config)
-                         (artifact->str watch))))))
+                         (c/with-color :blue (artifact->str watch)))))))
 
 (defonce timer-id (atom nil))
 
