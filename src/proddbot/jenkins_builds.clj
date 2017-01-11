@@ -43,8 +43,8 @@
     (format "%02d:%02d:%02d" hours minutes seconds)))
 
 (def status-colors {"ABORTED" :yellow
-                    "FAILURE" :red
-                    "SUCCESS" :green})
+                    "FAILURE" :light-red
+                    "SUCCESS" :light-green})
 
 (defn build-message [payload]
   (let [build (:build payload)
@@ -53,7 +53,7 @@
               (c/with-color :light-blue (:name payload))
               (:number build)
               (.toLowerCase (:phase build))
-              (c/with-color (status-colors status :orange) status))
+              (c/with-color (status-colors status :orange) :black status))
         msg (if-let [duration (::duration payload)]
               (format "%s in %s" msg (c/with-color :orange (format-duration duration)))
               msg)
