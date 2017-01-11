@@ -31,7 +31,7 @@
   (->> @watches (filter-by-channel channel) sort-by-time))
 
 (defn watch->str [{:keys [::nick ::time] :as watch}]
-  (format "%s by: %s at: %s" (c/with-color :blue (artifact->str watch))
+  (format "%s by: %s at: %s" (c/with-color :light-blue (artifact->str watch))
     (or nick (c/with-color :green "<CI>"))
     (c/with-color :orange (.format date-formatter time))))
 
@@ -54,7 +54,7 @@
                    ::channel channel
                    ::time (Date.)}]
         (swap! watches conj watch)
-        [(format "watch for %s created" (c/with-color :blue (artifact->str watch)))])
+        [(format "watch for %s created" (c/with-color :light-blue (artifact->str watch)))])
       (usage signal))))
 
 (defmethod command :cancel [{:keys [::args]} {:keys [channel ::signal]}]
@@ -63,7 +63,7 @@
     (if-let [w (nth (watch-list-for-channel channel) (read-string (first args)) nil)]
       (do
         (swap! watches disj w)
-        [(format "watch for %s cancelled" (c/with-color :blue (artifact->str w)))])
+        [(format "watch for %s cancelled" (c/with-color :light-blue (artifact->str w)))])
       ["no matching watch found"])
     (usage signal)))
 
@@ -118,7 +118,7 @@
       (send-fn channel (format "%s%s %s is now available in central"
                          (if nick (str nick ": ") "")
                          (happy-message config)
-                         (c/with-color :blue (artifact->str watch)))))))
+                         (c/with-color :light-blue (artifact->str watch)))))))
 
 (defonce timer-id (atom nil))
 

@@ -50,17 +50,17 @@
   (let [build (:build payload)
         status (:status build)
         msg (format "%s build %s %s with %s"
-              (c/with-color :blue (:name payload))
+              (c/with-color :light-blue (:name payload))
               (:number build)
-              (:phase build)
+              (.toLowerCase (:phase build))
               (c/with-color (status-colors status :white) status))
         msg (if-let [duration (::duration payload)]
-              (format "%s (%s)" msg (format-duration duration))
+              (format "%s in %s" msg (c/with-color :light-grey (format-duration duration)))
               msg)
         msg (if-let [pr-url (pr-url (git-url build) (pr-id build))]
-              (format "%s for PR %s" msg pr-url)
+              (format "%s for PR %s" msg (c/with-color :cyan pr-url))
               msg)]
-    (format "%s (%s)" msg (:full_url build))))
+    (format "%s %s" msg (c/with-color :cyan (:full_url build)))))
 
 (defn handler [irc-fn req]
   (when-let [payload (::payload req)]
