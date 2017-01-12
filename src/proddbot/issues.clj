@@ -1,5 +1,6 @@
 (ns proddbot.issues
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [proddbot.colors :as c]))
 
 (def nick-phrases
   (memoize
@@ -26,7 +27,7 @@
     (when target-nick (str target-nick ": "))
     (phrase config nick)
     " if you would file an issue at "
-    (issue-url config channel)))
+    (c/with-color :cyan (issue-url config channel))))
 
 (defn issue-handler [config irc {:keys [nick text channel]}]
   (let [{:keys [directed global]} (:issue-triggers config)]
