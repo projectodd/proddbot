@@ -43,7 +43,7 @@
     (format "%02d:%02d:%02d" hours minutes seconds)))
 
 (def status-colors {"ABORTED" :orange
-                    "FAILURE" :red
+                    "FAILURE" :orange
                     "SUCCESS" :green})
 
 (defn build-message [payload]
