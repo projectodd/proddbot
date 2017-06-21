@@ -31,7 +31,7 @@
    (println event-type "event received, exiting")
    (System/exit 1)))
 
-(defn start [{:keys [host port web-port web-host nick channels] :as config}]
+(defn start [{:keys [host port web-port web-host nick channels jenkins-token] :as config}]
   (let [irc (irc/connect host port nick
               :callbacks {:raw-log events/stdout-callback
                           :privmsg #(#'msg-handler config %1 %2)
@@ -43,7 +43,7 @@
     (builds/start
       web-port
       web-host
-      (System/getenv "JENKINS_TOKEN")
+      jenkins-token
       (set (keys channels))
       #(irc/message irc %1 %2))
     (releases/start config (fn [chan msg] (irc/message irc chan msg)))
@@ -61,6 +61,7 @@
      :web-port 8080
      :web-host "localhost"
      :nick "proddbot2"
+     :jenkins-token "foo"
      :channels {"##tcrawley" {:issue-url "https://issues.jboss.org/browse/IMMUTANT"}}
      :issue-triggers {:directed [#"(?i)^@(jira|issue) ([^\s]+)"]
                       :global [#"(?i)(fil(e|ing)|create) an* (jira|issue)[?]"

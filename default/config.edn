@@ -3,6 +3,7 @@
  :web-port 8675
  :web-host "0.0.0.0"
  :nick "proddbot"
+ :jenkins-token "set-via-sysprop"
 
  :channels {"##tcrawley"
             {:issue-url "https://issues.jboss.org/browse/IMMUTANT"}
