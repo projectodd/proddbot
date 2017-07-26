@@ -138,7 +138,7 @@
 (defn start [port host valid-token channels irc]
   (web/run
     (-> (partial handler irc)
-      (wrap-phase-filtering #{"STARTED" "FINALIZED"})
+      (wrap-phase-filtering #{"STARTED" "FINALIZED" "QUEUED"})
       (wrap-duration #{"COMPLETED"}) 
       wrap-payload-decoding
       (wrap-channel-check channels)
