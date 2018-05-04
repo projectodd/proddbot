@@ -21,6 +21,8 @@
             {:issue-url "https://issues.jboss.org/browse/LIVEOAK"}
             "#wildfly-swarm"
             {:issue-url "https://issues.jboss.org/browse/SWARM"}
+            "#thorntail"
+            {:issue-url "https://issues.jboss.org/browse/SWARM"}
             "#forge"
             {:issue-url "https://issues.jboss.org/secure/CreateIssue!default.jspa?pid=12311820"}}
 
@@ -97,7 +99,7 @@
                 "Fireflies would tenderly alight on the hand of a child"]
  :release-watch {:signal "@watch-release"
                  :interval 1 ;; minutes
-                 :channels #{"#forge" "#immutant" "#wildfly-swarm" "##tcrawley"}
+                 :channels #{"#forge" "#immutant" "#thorntail" "##tcrawley"}
                  :messages ["Good news!"
                             "Praise $deity!"
                             "You're in luck, my friend!"
