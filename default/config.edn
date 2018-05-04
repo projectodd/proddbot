@@ -22,7 +22,7 @@
             "#wildfly-swarm"
             {:issue-url "https://issues.jboss.org/browse/SWARM"}
             "#thorntail"
-            {:issue-url "https://issues.jboss.org/browse/SWARM"}
+            {:issue-url "https://issues.jboss.org/browse/THORN"}
             "#forge"
             {:issue-url "https://issues.jboss.org/secure/CreateIssue!default.jspa?pid=12311820"}}
 
